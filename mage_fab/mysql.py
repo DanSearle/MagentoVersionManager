@@ -1,5 +1,5 @@
 from fabric.api import run, put
-from magento.fabric.files import readlink
+from mage_fab.files import readlink
 from StringIO import StringIO
 import time
 

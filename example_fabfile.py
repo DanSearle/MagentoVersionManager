@@ -1,4 +1,4 @@
-from magento.fabric import mysql
+from mage_fab import mysql
 from fabric.api import task, env
 
 mysqlu = "root"
