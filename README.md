@@ -21,10 +21,10 @@ git submodule update  --init
 ```
 
 Using this repository as a submodule you can then access the Python module
-through standard Python imports. E.g.
+through Python imports. E.g.
 ```
-import mvm.magento.fabric.mysql
-import mvm.magento.db
+from mvm.magento import db
+from mvm.mage_fab import mysql
 ```
 
 To update to the latest master:
