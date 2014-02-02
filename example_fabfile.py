@@ -1,14 +1,19 @@
 from magento.fabric import mysql
 from fabric.api import task, env
 
+mysqlu = "root"
+mysqlp = "root"
+fromdb = "fromdb"
+
 
 @task
 def test_mysql():
     env.host_string = "192.168.100.138"
     env.user = "vagrant"
     env.password = "vagrant"
-    sql = mysql.Connection("information_schema", "root", "password")
-    sql.run("SHOW TABLES", "showtables.sql")
+    conn = mysql.Connection("information_schema", mysqlu, mysqlp)
+    cmd = mysql.Command(conn)
+    cmd.execute("SHOW TABLES", "showtables.sql")
 
 
 @task
@@ -16,9 +21,10 @@ def test_copy():
     env.host_string = "192.168.100.138"
     env.user = "vagrant"
     env.password = "vagrant"
-    sql = mysql.Connection("fromdb", "root", "password")
-    sql.run("CREATE DATABASE test_copy", "createdb.sql")
-    to = mysql.Connection("test", "root", "password")
-    copy = mysql.Copy(sql, to)
+    conn = mysql.Connection(fromdb, mysqlu, mysqlp, verbose=False)
+    cmd = mysql.Command(conn)
+    cmd.execute("CREATE DATABASE IF NOT EXISTS test_copy", "createdb.sql")
+    to = mysql.Connection("test", mysqlu, mysqlp, verbose=False)
+    copy = mysql.Copy(conn, to)
     copy.run()
-    sql.run("DROP DATABASE test_copy", "createdb.sql")
+    cmd.execute("DROP DATABASE test_copy", "dropdb.sql")
