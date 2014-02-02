@@ -13,9 +13,9 @@ class UpdateUrls(object):
         """ Update the unsecure and secure urls in configuration.
             Note that both URLs should end with a slash ('/')
         """
-        if unsecure[1:] != "/":
+        if unsecure[-1:] != "/":
             raise ValueError("unsecure url does not end with a slash('/')")
-        if secure[1:] != "/":
+        if secure[-1:] != "/":
             raise ValueError("secure url does not end with a slash('/')")
 
         sql = "UPDATE core_config_data SET value='{0}' WHERE path='{1}'"
