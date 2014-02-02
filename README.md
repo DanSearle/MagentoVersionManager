@@ -26,3 +26,11 @@ through standard Python imports. E.g.
 import mvm.magento.fabric.mysql
 import mvm.magento.db
 ```
+
+To update to the latest master:
+```
+cd {fabfile}/mvm
+git pull
+cd ..
+git commit -m 'Updated to latest MagentoVersionManager'
+```
